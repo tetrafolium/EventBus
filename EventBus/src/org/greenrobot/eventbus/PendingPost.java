@@ -25,12 +25,12 @@ final class PendingPost {
     Subscription subscription;
     PendingPost next;
 
-    private PendingPost(Object event, Subscription subscription) {
+    private PendingPost(final Object event, final Subscription subscription) {
         this.event = event;
         this.subscription = subscription;
     }
 
-    static PendingPost obtainPendingPost(Subscription subscription, Object event) {
+    static PendingPost obtainPendingPost(final Subscription subscription, final Object event) {
         synchronized (pendingPostPool) {
             int size = pendingPostPool.size();
             if (size > 0) {
@@ -44,7 +44,7 @@ final class PendingPost {
         return new PendingPost(event, subscription);
     }
 
-    static void releasePendingPost(PendingPost pendingPost) {
+    static void releasePendingPost(final PendingPost pendingPost) {
         pendingPost.event = null;
         pendingPost.subscription = null;
         pendingPost.next = null;

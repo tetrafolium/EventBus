@@ -26,47 +26,47 @@ public class EventBusFallbackToReflectionTest extends AbstractEventBusTest {
 
     public class PublicClass {
         @Subscribe
-        public void onEvent(Object any) {
+        public void onEvent(final Object any) {
             trackEvent(any);
         }
     }
 
     private class PrivateClass {
         @Subscribe
-        public void onEvent(Object any) {
+        public void onEvent(final Object any) {
             trackEvent(any);
         }
     }
 
     public class PublicWithPrivateSuperClass extends PrivateClass {
         @Subscribe
-        public void onEvent(String any) {
+        public void onEvent(final String any) {
             trackEvent(any);
         }
     }
 
     public class PublicClassWithPrivateEvent {
         @Subscribe
-        public void onEvent(PrivateEvent any) {
+        public void onEvent(final PrivateEvent any) {
             trackEvent(any);
         }
     }
 
     public class PublicClassWithPublicAndPrivateEvent {
         @Subscribe
-        public void onEvent(String any) {
+        public void onEvent(final String any) {
             trackEvent(any);
         }
 
         @Subscribe
-        public void onEvent(PrivateEvent any) {
+        public void onEvent(final PrivateEvent any) {
             trackEvent(any);
         }
     }
 
     public class PublicWithPrivateEventInSuperclass extends PublicClassWithPrivateEvent {
         @Subscribe
-        public void onEvent(Object any) {
+        public void onEvent(final Object any) {
             trackEvent(any);
         }
     }
@@ -79,7 +79,7 @@ public class EventBusFallbackToReflectionTest extends AbstractEventBusTest {
     public void testAnonymousSubscriberClass() {
         Object subscriber = new Object() {
             @Subscribe
-            public void onEvent(String event) {
+            public void onEvent(final String event) {
                 trackEvent(event);
             }
         };
@@ -94,7 +94,7 @@ public class EventBusFallbackToReflectionTest extends AbstractEventBusTest {
     public void testAnonymousSubscriberClassWithPublicSuperclass() {
         Object subscriber = new PublicClass() {
             @Subscribe
-            public void onEvent(String event) {
+            public void onEvent(final String event) {
                 trackEvent(event);
             }
         };

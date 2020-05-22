@@ -24,7 +24,7 @@ public class SimpleSubscriberInfo extends AbstractSubscriberInfo {
 
     private final SubscriberMethodInfo[] methodInfos;
 
-    public SimpleSubscriberInfo(Class subscriberClass, boolean shouldCheckSuperclass, SubscriberMethodInfo[] methodInfos) {
+    public SimpleSubscriberInfo(final Class subscriberClass, final boolean shouldCheckSuperclass, final SubscriberMethodInfo[] methodInfos) {
         super(subscriberClass, null, shouldCheckSuperclass);
         this.methodInfos = methodInfos;
     }

@@ -158,38 +158,38 @@ public class EventBusStickyEventTest extends AbstractEventBusTest {
     }
 
     @Subscribe(sticky = true)
-    public void onEvent(String event) {
+    public void onEvent(final String event) {
         trackEvent(event);
     }
 
     @Subscribe(sticky = true)
-    public void onEvent(IntTestEvent event) {
+    public void onEvent(final IntTestEvent event) {
         trackEvent(event);
     }
 
     public class RemoveStickySubscriber {
         @SuppressWarnings("unused")
         @Subscribe(sticky = true)
-        public void onEvent(String event) {
+        public void onEvent(final String event) {
             eventBus.removeStickyEvent(event);
         }
     }
 
     public class NonStickySubscriber {
         @Subscribe
-        public void onEvent(String event) {
+        public void onEvent(final String event) {
             trackEvent(event);
         }
 
         @Subscribe
-        public void onEvent(IntTestEvent event) {
+        public void onEvent(final IntTestEvent event) {
             trackEvent(event);
         }
     }
 
     public class StickyIntTestSubscriber {
         @Subscribe(sticky = true)
-        public void onEvent(IntTestEvent event) {
+        public void onEvent(final IntTestEvent event) {
             trackEvent(event);
         }
     }

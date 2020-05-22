@@ -77,22 +77,22 @@ public class EventBusAndroidMultithreadedTest extends EventBusMultithreadedTest 
         }
 
         @Subscribe(threadMode = ThreadMode.MAIN)
-        public void onEventMainThread(String event) {
+        public void onEventMainThread(final String event) {
             assertSame(Looper.getMainLooper(), Looper.myLooper());
         }
 
         @Subscribe(threadMode = ThreadMode.BACKGROUND)
-        public void onEventBackgroundThread(Integer event) {
+        public void onEventBackgroundThread(final Integer event) {
             assertNotSame(Looper.getMainLooper(), Looper.myLooper());
         }
 
         @Subscribe
-        public void onEvent(Object event) {
+        public void onEvent(final Object event) {
             assertNotSame(Looper.getMainLooper(), Looper.myLooper());
         }
 
         @Subscribe(threadMode = ThreadMode.ASYNC)
-        public void onEventAsync(Object event) {
+        public void onEventAsync(final Object event) {
             assertNotSame(Looper.getMainLooper(), Looper.myLooper());
         }
     }

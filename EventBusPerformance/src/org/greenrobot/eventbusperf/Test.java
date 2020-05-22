@@ -30,7 +30,7 @@ public abstract class Test {
 
     protected boolean canceled;
 
-    public Test(Context context, TestParams params) {
+    public Test(final Context context, final TestParams params) {
         this.context = context;
         this.params = params;
     }
@@ -47,7 +47,7 @@ public abstract class Test {
     /** returns the display name of the test. e.g. EventBus */
     public abstract String getDisplayName();
 
-    protected void waitForReceivedEventCount(int expectedEventCount) {
+    protected void waitForReceivedEventCount(final int expectedEventCount) {
         while (eventsReceivedCount.get() < expectedEventCount) {
             try {
                 Thread.sleep(1);

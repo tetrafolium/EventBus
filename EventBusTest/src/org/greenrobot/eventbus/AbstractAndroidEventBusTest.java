@@ -38,7 +38,7 @@ public abstract class AbstractAndroidEventBusTest extends AbstractEventBusTest {
         this(false);
     }
 
-    public AbstractAndroidEventBusTest(boolean collectEventsReceived) {
+    public AbstractAndroidEventBusTest(final boolean collectEventsReceived) {
         super(collectEventsReceived);
     }
 
@@ -48,22 +48,22 @@ public abstract class AbstractAndroidEventBusTest extends AbstractEventBusTest {
         assertFalse(Looper.getMainLooper().getThread().equals(Thread.currentThread()));
     }
 
-    protected void postInMainThread(Object event) {
+    protected void postInMainThread(final Object event) {
         mainPoster.post(event);
     }
 
     @SuppressLint("HandlerLeak")
     class EventPostHandler extends Handler {
-        public EventPostHandler(Looper looper) {
+        public EventPostHandler(final Looper looper) {
             super(looper);
         }
 
         @Override
-        public void handleMessage(Message msg) {
+        public void handleMessage(final Message msg) {
             eventBus.post(msg.obj);
         }
 
-        void post(Object event) {
+        void post(final Object event) {
             sendMessage(obtainMessage(0, event));
         }
 

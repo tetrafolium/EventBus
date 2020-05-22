@@ -29,12 +29,12 @@ final class BackgroundPoster implements Runnable, Poster {
 
     private volatile boolean executorRunning;
 
-    BackgroundPoster(EventBus eventBus) {
+    BackgroundPoster(final EventBus eventBus) {
         this.eventBus = eventBus;
         queue = new PendingPostQueue();
     }
 
-    public void enqueue(Subscription subscription, Object event) {
+    public void enqueue(final Subscription subscription, final Object event) {
         PendingPost pendingPost = PendingPost.obtainPendingPost(subscription, event);
         synchronized (this) {
             queue.enqueue(pendingPost);

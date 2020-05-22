@@ -38,17 +38,17 @@ public class AsyncExecutor {
         private Builder() {
         }
 
-        public Builder threadPool(Executor threadPool) {
+        public Builder threadPool(final Executor threadPool) {
             this.threadPool = threadPool;
             return this;
         }
 
-        public Builder failureEventType(Class<?> failureEventType) {
+        public Builder failureEventType(final Class<?> failureEventType) {
             this.failureEventType = failureEventType;
             return this;
         }
 
-        public Builder eventBus(EventBus eventBus) {
+        public Builder eventBus(final EventBus eventBus) {
             this.eventBus = eventBus;
             return this;
         }
@@ -57,7 +57,7 @@ public class AsyncExecutor {
             return buildForScope(null);
         }
 
-        public AsyncExecutor buildForScope(Object executionContext) {
+        public AsyncExecutor buildForScope(final Object executionContext) {
             if (eventBus == null) {
                 eventBus = EventBus.getDefault();
             }
@@ -89,7 +89,7 @@ public class AsyncExecutor {
     private final EventBus eventBus;
     private final Object scope;
 
-    private AsyncExecutor(Executor threadPool, EventBus eventBus, Class<?> failureEventType, Object scope) {
+    private AsyncExecutor(final Executor threadPool, final EventBus eventBus, final Class<?> failureEventType, final Object scope) {
         this.threadPool = threadPool;
         this.eventBus = eventBus;
         this.scope = scope;

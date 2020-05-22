@@ -68,7 +68,7 @@ public class EventBusMultithreadedTest extends AbstractEventBusTest {
         runThreadsMixedEventType(40);
     }
 
-    private void runThreadsSingleEventType(int threadCount) throws InterruptedException {
+    private void runThreadsSingleEventType(final int threadCount) throws InterruptedException {
         int iterations = COUNT / threadCount;
         eventBus.register(this);
 
@@ -86,11 +86,11 @@ public class EventBusMultithreadedTest extends AbstractEventBusTest {
         assertEquals(expectedCount, countObjectEvent.intValue());
     }
 
-    private void runThreadsMixedEventType(int threadCount) throws InterruptedException {
+    private void runThreadsMixedEventType(final int threadCount) throws InterruptedException {
         runThreadsMixedEventType(COUNT, threadCount);
     }
 
-    void runThreadsMixedEventType(int count, int threadCount) throws InterruptedException {
+    void runThreadsMixedEventType(final int count, final int threadCount) throws InterruptedException {
         eventBus.register(this);
         int eventTypeCount = 3;
         int iterations = count / threadCount / eventTypeCount;
@@ -124,7 +124,7 @@ public class EventBusMultithreadedTest extends AbstractEventBusTest {
         assertEquals(expectedCountEach * eventTypeCount, countObjectEvent.intValue());
     }
 
-    private long triggerAndWaitForThreads(List<PosterThread> threads, CountDownLatch latch) throws InterruptedException {
+    private long triggerAndWaitForThreads(final List<PosterThread> threads, final CountDownLatch latch) throws InterruptedException {
         while (latch.getCount() != 1) {
             // Let all other threads prepare and ensure this one is the last 
             Thread.sleep(1);
@@ -137,7 +137,7 @@ public class EventBusMultithreadedTest extends AbstractEventBusTest {
         return System.currentTimeMillis() - start;
     }
 
-    private List<PosterThread> startThreads(CountDownLatch latch, int threadCount, int iterations, Object eventToPost) {
+    private List<PosterThread> startThreads(final CountDownLatch latch, final int threadCount, final int iterations, final Object eventToPost) {
         List<PosterThread> threads = new ArrayList<PosterThread>(threadCount);
         for (int i = 0; i < threadCount; i++) {
             PosterThread thread = new PosterThread(latch, iterations, eventToPost);
@@ -148,28 +148,28 @@ public class EventBusMultithreadedTest extends AbstractEventBusTest {
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    public void onEventBackgroundThread(String event) {
+    public void onEventBackgroundThread(final String event) {
         lastStringEvent = event;
         countStringEvent.incrementAndGet();
         trackEvent(event);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventMainThread(Integer event) {
+    public void onEventMainThread(final Integer event) {
         lastIntegerEvent = event;
         countIntegerEvent.incrementAndGet();
         trackEvent(event);
     }
 
     @Subscribe(threadMode = ThreadMode.ASYNC)
-    public void onEventAsync(IntTestEvent event) {
+    public void onEventAsync(final IntTestEvent event) {
         countIntTestEvent.incrementAndGet();
         lastIntTestEvent = event;
         trackEvent(event);
     }
 
     @Subscribe
-    public void onEvent(Object event) {
+    public void onEvent(final Object event) {
         countObjectEvent.incrementAndGet();
         trackEvent(event);
     }
@@ -180,7 +180,7 @@ public class EventBusMultithreadedTest extends AbstractEventBusTest {
         private final int iterations;
         private final Object eventToPost;
 
-        public PosterThread(CountDownLatch latch, int iterations, Object eventToPost) {
+        public PosterThread(final CountDownLatch latch, final int iterations, final Object eventToPost) {
             this.startLatch = latch;
             this.iterations = iterations;
             this.eventToPost = eventToPost;

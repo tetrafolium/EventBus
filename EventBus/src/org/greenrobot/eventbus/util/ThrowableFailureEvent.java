@@ -24,7 +24,7 @@ public class ThrowableFailureEvent implements HasExecutionScope {
     protected final boolean suppressErrorUi;
     private Object executionContext;
 
-    public ThrowableFailureEvent(Throwable throwable) {
+    public ThrowableFailureEvent(final Throwable throwable) {
         this.throwable = throwable;
         suppressErrorUi = false;
     }
@@ -33,7 +33,7 @@ public class ThrowableFailureEvent implements HasExecutionScope {
      * @param suppressErrorUi
      *            true indicates to the receiver that no error UI (e.g. dialog) should now displayed.
      */
-    public ThrowableFailureEvent(Throwable throwable, boolean suppressErrorUi) {
+    public ThrowableFailureEvent(final Throwable throwable, final boolean suppressErrorUi) {
         this.throwable = throwable;
         this.suppressErrorUi = suppressErrorUi;
     }
@@ -50,7 +50,7 @@ public class ThrowableFailureEvent implements HasExecutionScope {
         return executionContext;
     }
 
-    public void setExecutionScope(Object executionContext) {
+    public void setExecutionScope(final Object executionContext) {
         this.executionContext = executionContext;
     }
     

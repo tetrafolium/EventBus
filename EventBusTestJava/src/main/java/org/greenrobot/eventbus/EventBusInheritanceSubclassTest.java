@@ -7,7 +7,7 @@ public class EventBusInheritanceSubclassTest extends EventBusInheritanceTest {
     int countMyEventOverwritten;
 
     @Subscribe
-    public void onEvent(MyEvent event) {
+    public void onEvent(final MyEvent event) {
         countMyEventOverwritten++;
     }
 

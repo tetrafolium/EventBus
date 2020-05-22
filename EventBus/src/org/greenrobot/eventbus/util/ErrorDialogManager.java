@@ -53,7 +53,7 @@ public class ErrorDialogManager {
         private Object executionScope;
 
         @Override
-        public void onCreate(Bundle savedInstanceState) {
+        public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             eventBus = ErrorDialogManager.factory.config.getEventBus();
             eventBus.register(this);
@@ -78,7 +78,7 @@ public class ErrorDialogManager {
             super.onPause();
         }
 
-        public void onEventMainThread(ThrowableFailureEvent event) {
+        public void onEventMainThread(final ThrowableFailureEvent event) {
             if (!isInExecutionScope(executionScope, event)) {
                 return;
             }
@@ -100,8 +100,8 @@ public class ErrorDialogManager {
             }
         }
 
-        public static void attachTo(Activity activity, Object executionScope, boolean finishAfterDialog,
-                Bundle argumentsForErrorDialog) {
+        public static void attachTo(final Activity activity, final Object executionScope, final boolean finishAfterDialog,
+                final Bundle argumentsForErrorDialog) {
             FragmentManager fm = ((FragmentActivity) activity).getSupportFragmentManager();
             SupportManagerFragment fragment = (SupportManagerFragment) fm.findFragmentByTag(TAG_ERROR_DIALOG_MANAGER);
             if (fragment == null) {
@@ -135,7 +135,7 @@ public class ErrorDialogManager {
             super.onPause();
         }
 
-        public void onEventMainThread(ThrowableFailureEvent event) {
+        public void onEventMainThread(final ThrowableFailureEvent event) {
             if (!isInExecutionScope(executionScope, event)) {
                 return;
             }
@@ -159,7 +159,7 @@ public class ErrorDialogManager {
             }
         }
 
-        public static void attachTo(Activity activity, Object executionScope, boolean finishAfterDialog, Bundle argumentsForErrorDialog) {
+        public static void attachTo(final Activity activity, final Object executionScope, final boolean finishAfterDialog, final Bundle argumentsForErrorDialog) {
             android.app.FragmentManager fm = activity.getFragmentManager();
             HoneycombManagerFragment fragment = (HoneycombManagerFragment) fm
                     .findFragmentByTag(TAG_ERROR_DIALOG_MANAGER);
@@ -187,22 +187,22 @@ public class ErrorDialogManager {
     public static final String KEY_EVENT_TYPE_ON_CLOSE = "de.greenrobot.eventbus.errordialog.event_type_on_close";
 
     /** Scope is limited to the activity's class. */
-    public static void attachTo(Activity activity) {
+    public static void attachTo(final Activity activity) {
         attachTo(activity, false, null);
     }
 
     /** Scope is limited to the activity's class. */
-    public static void attachTo(Activity activity, boolean finishAfterDialog) {
+    public static void attachTo(final Activity activity, final boolean finishAfterDialog) {
         attachTo(activity, finishAfterDialog, null);
     }
 
     /** Scope is limited to the activity's class. */
-    public static void attachTo(Activity activity, boolean finishAfterDialog, Bundle argumentsForErrorDialog) {
+    public static void attachTo(final Activity activity, final boolean finishAfterDialog, final Bundle argumentsForErrorDialog) {
         Object executionScope = activity.getClass();
         attachTo(activity, executionScope, finishAfterDialog, argumentsForErrorDialog);
     }
     
-    public static void attachTo(Activity activity, Object executionScope, boolean finishAfterDialog, Bundle argumentsForErrorDialog) {
+    public static void attachTo(final Activity activity, final Object executionScope, final boolean finishAfterDialog, final Bundle argumentsForErrorDialog) {
         if (factory == null) {
             throw new RuntimeException("You must set the static factory field to configure error dialogs for your app.");
         }
@@ -213,7 +213,7 @@ public class ErrorDialogManager {
         }
     }
 
-    private static boolean isSupportActivity(Activity activity) {
+    private static boolean isSupportActivity(final Activity activity) {
         boolean isSupport = false;
         for (Class<?> c = activity.getClass().getSuperclass();; c = c.getSuperclass()) {
             if (c == null) {
@@ -238,7 +238,7 @@ public class ErrorDialogManager {
         return isSupport;
     }
 
-    protected static void checkLogException(ThrowableFailureEvent event) {
+    protected static void checkLogException(final ThrowableFailureEvent event) {
         if (factory.config.logExceptions) {
             String tag = factory.config.tagForLoggingExceptions;
             if (tag == null) {
@@ -248,7 +248,7 @@ public class ErrorDialogManager {
         }
     }
 
-    private static boolean isInExecutionScope(Object executionScope, ThrowableFailureEvent event) {
+    private static boolean isInExecutionScope(final Object executionScope, final ThrowableFailureEvent event) {
         if (event != null) {
             Object eventExecutionScope = event.getExecutionScope();
             if (eventExecutionScope != null && !eventExecutionScope.equals(executionScope)) {

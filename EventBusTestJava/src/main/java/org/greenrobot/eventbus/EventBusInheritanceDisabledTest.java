@@ -129,27 +129,27 @@ public class EventBusInheritanceDisabledTest {
     }
 
     @Subscribe
-    public void onEvent(Object event) {
+    public void onEvent(final Object event) {
         countObjectEvent++;
     }
 
     @Subscribe
-    public void onEvent(MyEvent event) {
+    public void onEvent(final MyEvent event) {
         countMyEvent++;
     }
 
     @Subscribe
-    public void onEvent(MyEventExtended event) {
+    public void onEvent(final MyEventExtended event) {
         countMyEventExtended++;
     }
 
     @Subscribe
-    public void onEvent(MyEventInterface event) {
+    public void onEvent(final MyEventInterface event) {
         countMyEventInterface++;
     }
 
     @Subscribe
-    public void onEvent(MyEventInterfaceExtended event) {
+    public void onEvent(final MyEventInterfaceExtended event) {
         countMyEventInterfaceExtended++;
     }
 
@@ -167,27 +167,27 @@ public class EventBusInheritanceDisabledTest {
 
     public class StickySubscriber {
         @Subscribe(sticky = true)
-        public void onEvent(Object event) {
+        public void onEvent(final Object event) {
             countObjectEvent++;
         }
 
         @Subscribe(sticky = true)
-        public void onEvent(MyEvent event) {
+        public void onEvent(final MyEvent event) {
             countMyEvent++;
         }
 
         @Subscribe(sticky = true)
-        public void onEvent(MyEventExtended event) {
+        public void onEvent(final MyEventExtended event) {
             countMyEventExtended++;
         }
 
         @Subscribe(sticky = true)
-        public void onEvent(MyEventInterface event) {
+        public void onEvent(final MyEventInterface event) {
             countMyEventInterface++;
         }
 
         @Subscribe(sticky = true)
-        public void onEvent(MyEventInterfaceExtended event) {
+        public void onEvent(final MyEventInterfaceExtended event) {
             countMyEventInterfaceExtended++;
         }
     }

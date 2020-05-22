@@ -27,14 +27,14 @@ public class HandlerPoster extends Handler implements Poster {
     private final EventBus eventBus;
     private boolean handlerActive;
 
-    protected HandlerPoster(EventBus eventBus, Looper looper, int maxMillisInsideHandleMessage) {
+    protected HandlerPoster(final EventBus eventBus, final Looper looper, final int maxMillisInsideHandleMessage) {
         super(looper);
         this.eventBus = eventBus;
         this.maxMillisInsideHandleMessage = maxMillisInsideHandleMessage;
         queue = new PendingPostQueue();
     }
 
-    public void enqueue(Subscription subscription, Object event) {
+    public void enqueue(final Subscription subscription, final Object event) {
         PendingPost pendingPost = PendingPost.obtainPendingPost(subscription, event);
         synchronized (this) {
             queue.enqueue(pendingPost);
@@ -48,7 +48,7 @@ public class HandlerPoster extends Handler implements Poster {
     }
 
     @Override
-    public void handleMessage(Message msg) {
+    public void handleMessage(final Message msg) {
         boolean rescheduled = false;
         try {
             long started = SystemClock.uptimeMillis();

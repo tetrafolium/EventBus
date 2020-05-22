@@ -48,7 +48,7 @@ public class EventBusBackgroundThreadTest extends AbstractAndroidEventBusTest {
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    public void onEventBackgroundThread(String event) {
+    public void onEventBackgroundThread(final String event) {
         trackEvent(event);
     }
 

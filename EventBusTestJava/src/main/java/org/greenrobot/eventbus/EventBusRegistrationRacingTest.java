@@ -93,7 +93,7 @@ public class EventBusRegistrationRacingTest extends AbstractEventBusTest {
         }
 
         @Subscribe
-        public void onEvent(String event) {
+        public void onEvent(final String event) {
             eventCount++;
         }
 

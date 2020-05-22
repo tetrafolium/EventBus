@@ -22,7 +22,7 @@ package org.greenrobot.eventbus;
 public class IntTestEvent {
     public final int value;
 
-    public IntTestEvent(int value) {
+    public IntTestEvent(final int value) {
         this.value = value;
     }
 

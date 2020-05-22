@@ -32,7 +32,7 @@ public class EventBusIndexTest {
         SubscriberInfoIndex index = new SubscriberInfoIndex() {
 
             @Override
-            public SubscriberInfo getSubscriberInfo(Class<?> subscriberClass) {
+            public SubscriberInfo getSubscriberInfo(final Class<?> subscriberClass) {
                 Assert.assertEquals(EventBusIndexTest.class, subscriberClass);
                 SubscriberMethodInfo[] methodInfos = {
                         new SubscriberMethodInfo("someMethodWithoutAnnotation", String.class)
@@ -48,7 +48,7 @@ public class EventBusIndexTest {
         Assert.assertEquals("Yepp", value);
     }
 
-    public void someMethodWithoutAnnotation(String value) {
+    public void someMethodWithoutAnnotation(final String value) {
         this.value = value;
     }
 }

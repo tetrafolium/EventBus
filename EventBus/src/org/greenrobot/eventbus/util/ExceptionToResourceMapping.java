@@ -62,7 +62,7 @@ public class ExceptionToResourceMapping {
     }
 
     /** Mapping without checking the cause (done in mapThrowable). */
-    protected Integer mapThrowableFlat(Throwable throwable) {
+    protected Integer mapThrowableFlat(final Throwable throwable) {
         Class<? extends Throwable> throwableClass = throwable.getClass();
         Integer resId = throwableToMsgIdMap.get(throwableClass);
         if (resId == null) {
@@ -82,7 +82,7 @@ public class ExceptionToResourceMapping {
         return resId;
     }
 
-    public ExceptionToResourceMapping addMapping(Class<? extends Throwable> clazz, int msgId) {
+    public ExceptionToResourceMapping addMapping(final Class<? extends Throwable> clazz, final int msgId) {
         throwableToMsgIdMap.put(clazz, msgId);
         return this;
     }

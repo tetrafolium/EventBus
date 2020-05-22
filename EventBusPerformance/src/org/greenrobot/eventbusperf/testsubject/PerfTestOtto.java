@@ -41,7 +41,7 @@ public abstract class PerfTestOtto extends Test {
     private final int eventCount;
     private final int expectedEventCount;
 
-    public PerfTestOtto(Context context, TestParams params) {
+    public PerfTestOtto(final Context context, final TestParams params) {
         super(context, params);
         eventBus = new Bus(ThreadEnforcer.ANY);
         subscribers = new ArrayList<Object>();
@@ -66,7 +66,7 @@ public abstract class PerfTestOtto extends Test {
     }
 
     public static class Post extends PerfTestOtto {
-        public Post(Context context, TestParams params) {
+        public Post(final Context context, final TestParams params) {
             super(context, params);
         }
 
@@ -99,7 +99,7 @@ public abstract class PerfTestOtto extends Test {
     }
 
     public static class RegisterAll extends PerfTestOtto {
-        public RegisterAll(Context context, TestParams params) {
+        public RegisterAll(final Context context, final TestParams params) {
             super(context, params);
         }
 
@@ -119,7 +119,7 @@ public abstract class PerfTestOtto extends Test {
     public static class RegisterOneByOne extends PerfTestOtto {
         protected Field cacheField;
 
-        public RegisterOneByOne(Context context, TestParams params) {
+        public RegisterOneByOne(final Context context, final TestParams params) {
             super(context, params);
         }
 
@@ -164,7 +164,7 @@ public abstract class PerfTestOtto extends Test {
 
     public static class RegisterFirstTime extends RegisterOneByOne {
 
-        public RegisterFirstTime(Context context, TestParams params) {
+        public RegisterFirstTime(final Context context, final TestParams params) {
             super(context, params);
             try {
                 Class<?> clazz = Class.forName("com.squareup.otto.AnnotatedHandlerFinder");
@@ -187,7 +187,7 @@ public abstract class PerfTestOtto extends Test {
         }
 
         @Subscribe
-        public void onEvent(TestEvent event) {
+        public void onEvent(final TestEvent event) {
             eventsReceivedCount.incrementAndGet();
         }
 

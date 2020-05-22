@@ -35,43 +35,43 @@ import org.greenrobot.eventbusperf.testsubject.PerfTestOtto;
 public class TestSetupActivity extends Activity {
 
     @SuppressWarnings("rawtypes")
-    static final Class[] TEST_CLASSES_EVENTBUS = {PerfTestEventBus.Post.class,//
-            PerfTestEventBus.RegisterOneByOne.class,//
+    static final Class[] TEST_CLASSES_EVENTBUS = {PerfTestEventBus.Post.class, //
+            PerfTestEventBus.RegisterOneByOne.class, //
             PerfTestEventBus.RegisterAll.class, //
             PerfTestEventBus.RegisterFirstTime.class};
 
-    static final Class[] TEST_CLASSES_OTTO = {PerfTestOtto.Post.class,//
-            PerfTestOtto.RegisterOneByOne.class,//
+    static final Class[] TEST_CLASSES_OTTO = {PerfTestOtto.Post.class, //
+            PerfTestOtto.RegisterOneByOne.class, //
             PerfTestOtto.RegisterAll.class, //
             PerfTestOtto.RegisterFirstTime.class};
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setuptests);
 
         Spinner spinnerRun = findViewById(R.id.spinnerTestToRun);
         spinnerRun.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-            public void onItemSelected(AdapterView<?> adapter, View v, int pos, long lng) {
+            public void onItemSelected(final AdapterView<?> adapter, final View v, final int pos, final long lng) {
                 int eventsVisibility = pos == 0 ? View.VISIBLE : View.GONE;
                 findViewById(R.id.relativeLayoutForEvents).setVisibility(eventsVisibility);
                 findViewById(R.id.spinnerThread).setVisibility(eventsVisibility);
             }
 
-            public void onNothingSelected(AdapterView<?> arg0) {
+            public void onNothingSelected(final AdapterView<?> arg0) {
             }
         });
     }
 
-    public void checkEventBus(View v) {
+    public void checkEventBus(final View v) {
         Spinner spinnerThread = findViewById(R.id.spinnerThread);
         CheckBox checkBoxEventBus = findViewById(R.id.checkBoxEventBus);
         int visibility = checkBoxEventBus.isChecked() ? View.VISIBLE : View.GONE;
         spinnerThread.setVisibility(visibility);
     }
 
-    public void startClick(View v) {
+    public void startClick(final View v) {
         TestParams params = new TestParams();
         Spinner spinnerThread = findViewById(R.id.spinnerThread);
         String threadModeStr = spinnerThread.getSelectedItem().toString();
@@ -100,7 +100,7 @@ public class TestSetupActivity extends Activity {
     }
 
     @SuppressWarnings("unchecked")
-    private ArrayList<Class<? extends Test>> initTestClasses(int testPos) {
+    private ArrayList<Class<? extends Test>> initTestClasses(final int testPos) {
         ArrayList<Class<? extends Test>> testClasses = new ArrayList<Class<? extends Test>>();
         // the attributes are putted in the intent (eventbus, otto, broadcast, local broadcast)
         final CheckBox checkBoxEventBus = findViewById(R.id.checkBoxEventBus);

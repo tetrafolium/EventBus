@@ -76,13 +76,13 @@ public class EventBusAnnotationProcessor extends AbstractProcessor {
     }
 
     @Override
-    public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment env) {
+    public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment env) {
         Messager messager = processingEnv.getMessager();
         try {
             String index = processingEnv.getOptions().get(OPTION_EVENT_BUS_INDEX);
             if (index == null) {
-                messager.printMessage(Diagnostic.Kind.ERROR, "No option " + OPTION_EVENT_BUS_INDEX +
-                        " passed to annotation processor");
+                messager.printMessage(Diagnostic.Kind.ERROR, "No option " + OPTION_EVENT_BUS_INDEX
+                        + " passed to annotation processor");
                 return false;
             }
             verbose = Boolean.parseBoolean(processingEnv.getOptions().get(OPTION_VERBOSE));
@@ -91,8 +91,8 @@ public class EventBusAnnotationProcessor extends AbstractProcessor {
 
             round++;
             if (verbose) {
-                messager.printMessage(Diagnostic.Kind.NOTE, "Processing round " + round + ", new annotations: " +
-                        !annotations.isEmpty() + ", processingOver: " + env.processingOver());
+                messager.printMessage(Diagnostic.Kind.NOTE, "Processing round " + round + ", new annotations: "
+                        + !annotations.isEmpty() + ", processingOver: " + env.processingOver());
             }
             if (env.processingOver()) {
                 if (!annotations.isEmpty()) {
@@ -126,7 +126,7 @@ public class EventBusAnnotationProcessor extends AbstractProcessor {
         return true;
     }
 
-    private void collectSubscribers(Set<? extends TypeElement> annotations, RoundEnvironment env, Messager messager) {
+    private void collectSubscribers(final Set<? extends TypeElement> annotations, final RoundEnvironment env, final Messager messager) {
         for (TypeElement annotation : annotations) {
             Set<? extends Element> elements = env.getElementsAnnotatedWith(annotation);
             for (Element element : elements) {
@@ -143,7 +143,7 @@ public class EventBusAnnotationProcessor extends AbstractProcessor {
         }
     }
 
-    private boolean checkHasNoErrors(ExecutableElement element, Messager messager) {
+    private boolean checkHasNoErrors(final ExecutableElement element, final Messager messager) {
         if (element.getModifiers().contains(Modifier.STATIC)) {
             messager.printMessage(Diagnostic.Kind.ERROR, "Subscriber method must not be static", element);
             return false;
@@ -165,7 +165,7 @@ public class EventBusAnnotationProcessor extends AbstractProcessor {
     /**
      * Subscriber classes should be skipped if their class or any involved event class are not visible to the index.
      */
-    private void checkForSubscribersToSkip(Messager messager, String myPackage) {
+    private void checkForSubscribersToSkip(final Messager messager, final String myPackage) {
         for (TypeElement skipCandidate : methodsByClass.keySet()) {
             TypeElement subscriberClass = skipCandidate;
             while (subscriberClass != null) {
@@ -176,8 +176,8 @@ public class EventBusAnnotationProcessor extends AbstractProcessor {
                         if (subscriberClass.equals(skipCandidate)) {
                             msg = "Falling back to reflection because class is not public";
                         } else {
-                            msg = "Falling back to reflection because " + skipCandidate +
-                                    " has a non-public super class";
+                            msg = "Falling back to reflection because " + skipCandidate
+                                    + " has a non-public super class";
                         }
                         messager.printMessage(Diagnostic.Kind.NOTE, msg, subscriberClass);
                     }
@@ -189,8 +189,8 @@ public class EventBusAnnotationProcessor extends AbstractProcessor {
                         String skipReason = null;
                         VariableElement param = method.getParameters().get(0);
                         TypeMirror typeMirror = getParamTypeMirror(param, messager);
-                        if (!(typeMirror instanceof DeclaredType) ||
-                                !(((DeclaredType) typeMirror).asElement() instanceof TypeElement)) {
+                        if (!(typeMirror instanceof DeclaredType)
+                                || !(((DeclaredType) typeMirror).asElement() instanceof TypeElement)) {
                             skipReason = "event type cannot be processed";
                         }
                         if (skipReason == null) {
@@ -217,15 +217,15 @@ public class EventBusAnnotationProcessor extends AbstractProcessor {
         }
     }
 
-    private TypeMirror getParamTypeMirror(VariableElement param, Messager messager) {
+    private TypeMirror getParamTypeMirror(final VariableElement param, final Messager messager) {
         TypeMirror typeMirror = param.asType();
         // Check for generic type
         if (typeMirror instanceof TypeVariable) {
             TypeMirror upperBound = ((TypeVariable) typeMirror).getUpperBound();
             if (upperBound instanceof DeclaredType) {
                 if (messager != null) {
-                    messager.printMessage(Diagnostic.Kind.NOTE, "Using upper bound type " + upperBound +
-                            " for generic parameter", param);
+                    messager.printMessage(Diagnostic.Kind.NOTE, "Using upper bound type " + upperBound
+                            + " for generic parameter", param);
                 }
                 typeMirror = upperBound;
             }
@@ -233,7 +233,7 @@ public class EventBusAnnotationProcessor extends AbstractProcessor {
         return typeMirror;
     }
 
-    private TypeElement getSuperclass(TypeElement type) {
+    private TypeElement getSuperclass(final TypeElement type) {
         if (type.getSuperclass().getKind() == TypeKind.DECLARED) {
             TypeElement superclass = (TypeElement) processingEnv.getTypeUtils().asElement(type.getSuperclass());
             String name = superclass.getQualifiedName().toString();
@@ -248,7 +248,7 @@ public class EventBusAnnotationProcessor extends AbstractProcessor {
         }
     }
 
-    private String getClassString(TypeElement typeElement, String myPackage) {
+    private String getClassString(final TypeElement typeElement, final String myPackage) {
         PackageElement packageElement = getPackageElement(typeElement);
         String packageString = packageElement.getQualifiedName().toString();
         String className = typeElement.getQualifiedName().toString();
@@ -262,7 +262,7 @@ public class EventBusAnnotationProcessor extends AbstractProcessor {
         return className;
     }
 
-    private String cutPackage(String paket, String className) {
+    private String cutPackage(final String paket, final String className) {
         if (className.startsWith(paket + '.')) {
             // Don't use TypeElement.getSimpleName, it doesn't work for us with inner classes
             return className.substring(paket.length() + 1);
@@ -272,7 +272,7 @@ public class EventBusAnnotationProcessor extends AbstractProcessor {
         }
     }
 
-    private PackageElement getPackageElement(TypeElement subscriberClass) {
+    private PackageElement getPackageElement(final TypeElement subscriberClass) {
         Element candidate = subscriberClass.getEnclosingElement();
         while (!(candidate instanceof PackageElement)) {
             candidate = candidate.getEnclosingElement();
@@ -280,8 +280,8 @@ public class EventBusAnnotationProcessor extends AbstractProcessor {
         return (PackageElement) candidate;
     }
 
-    private void writeCreateSubscriberMethods(BufferedWriter writer, List<ExecutableElement> methods,
-                                              String callPrefix, String myPackage) throws IOException {
+    private void writeCreateSubscriberMethods(final BufferedWriter writer, final List<ExecutableElement> methods,
+                                              final String callPrefix, final String myPackage) throws IOException {
         for (ExecutableElement method : methods) {
             List<? extends VariableElement> parameters = method.getParameters();
             TypeMirror paramType = getParamTypeMirror(parameters.get(0), null);
@@ -309,15 +309,15 @@ public class EventBusAnnotationProcessor extends AbstractProcessor {
             writeLine(writer, 3, parts.toArray(new String[parts.size()]));
 
             if (verbose) {
-                processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "Indexed @Subscribe at " +
-                        method.getEnclosingElement().getSimpleName() + "." + methodName +
-                        "(" + paramElement.getSimpleName() + ")");
+                processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "Indexed @Subscribe at "
+                        + method.getEnclosingElement().getSimpleName() + "." + methodName
+                        + "(" + paramElement.getSimpleName() + ")");
             }
 
         }
     }
 
-    private void createInfoIndexFile(String index) {
+    private void createInfoIndexFile(final String index) {
         BufferedWriter writer = null;
         try {
             JavaFileObject sourceFile = processingEnv.getFiler().createSourceFile(index);
@@ -368,7 +368,7 @@ public class EventBusAnnotationProcessor extends AbstractProcessor {
         }
     }
 
-    private void writeIndexLines(BufferedWriter writer, String myPackage) throws IOException {
+    private void writeIndexLines(final BufferedWriter writer, final String myPackage) throws IOException {
         for (TypeElement subscriberTypeElement : methodsByClass.keySet()) {
             if (classesToSkip.contains(subscriberTypeElement)) {
                 continue;
@@ -388,7 +388,7 @@ public class EventBusAnnotationProcessor extends AbstractProcessor {
         }
     }
 
-    private boolean isVisible(String myPackage, TypeElement typeElement) {
+    private boolean isVisible(final String myPackage, final TypeElement typeElement) {
         Set<Modifier> modifiers = typeElement.getModifiers();
         boolean visible;
         if (modifiers.contains(Modifier.PUBLIC)) {
@@ -406,11 +406,11 @@ public class EventBusAnnotationProcessor extends AbstractProcessor {
         return visible;
     }
 
-    private void writeLine(BufferedWriter writer, int indentLevel, String... parts) throws IOException {
+    private void writeLine(final BufferedWriter writer, final int indentLevel, final String... parts) throws IOException {
         writeLine(writer, indentLevel, 2, parts);
     }
 
-    private void writeLine(BufferedWriter writer, int indentLevel, int indentLevelIncrease, String... parts)
+    private void writeLine(final BufferedWriter writer, final int indentLevel, final int indentLevelIncrease, final String... parts)
             throws IOException {
         writeIndent(writer, indentLevel);
         int len = indentLevel * 4;
@@ -434,7 +434,7 @@ public class EventBusAnnotationProcessor extends AbstractProcessor {
         writer.write("\n");
     }
 
-    private void writeIndent(BufferedWriter writer, int indentLevel) throws IOException {
+    private void writeIndent(final BufferedWriter writer, final int indentLevel) throws IOException {
         for (int i = 0; i < indentLevel; i++) {
             writer.write("    ");
         }

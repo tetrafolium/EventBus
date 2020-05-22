@@ -42,24 +42,24 @@ public class AndroidLogger implements Logger {
 
     private final String tag;
 
-    public AndroidLogger(String tag) {
+    public AndroidLogger(final String tag) {
         this.tag = tag;
     }
 
-    public void log(Level level, String msg) {
+    public void log(final Level level, final String msg) {
         if (level != Level.OFF) {
             Log.println(mapLevel(level), tag, msg);
         }
     }
 
-    public void log(Level level, String msg, Throwable th) {
+    public void log(final Level level, final String msg, final Throwable th) {
         if (level != Level.OFF) {
             // That's how Log does it internally
             Log.println(mapLevel(level), tag, msg + "\n" + Log.getStackTraceString(th));
         }
     }
 
-    private int mapLevel(Level level) {
+    private int mapLevel(final Level level) {
         int value = level.intValue();
         if (value < 800) { // below INFO
             if (value < 500) { // below FINE

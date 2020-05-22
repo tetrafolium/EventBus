@@ -48,18 +48,18 @@ public class EventBusSubscriberExceptionTest extends AbstractEventBusTest {
     }
 
     @Subscribe
-    public void onEvent(String event) {
+    public void onEvent(final String event) {
         throw new RuntimeException("Bar");
     }
 
     @Subscribe
-    public void onEvent(SubscriberExceptionEvent event) {
+    public void onEvent(final SubscriberExceptionEvent event) {
         trackEvent(event);
     }
 
     public class BadExceptionSubscriber {
         @Subscribe
-        public void onEvent(SubscriberExceptionEvent event) {
+        public void onEvent(final SubscriberExceptionEvent event) {
             throw new RuntimeException("Bad");
         }
     }

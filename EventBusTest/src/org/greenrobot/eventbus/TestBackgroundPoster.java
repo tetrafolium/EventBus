@@ -9,7 +9,7 @@ public class TestBackgroundPoster extends Thread {
     private final List<Object> eventQ = new ArrayList<>();
     private final List<Object> eventsDone = new ArrayList<>();
 
-    TestBackgroundPoster(EventBus eventBus) {
+    TestBackgroundPoster(final EventBus eventBus) {
         super("BackgroundPoster");
         this.eventBus = eventBus;
     }
@@ -37,7 +37,7 @@ public class TestBackgroundPoster extends Thread {
                 } catch (InterruptedException ignored) {
                 }
             }
-            if(!eventQ.isEmpty()) {
+            if (!eventQ.isEmpty()) {
                 event = eventQ.remove(0);
             }
         }
@@ -51,7 +51,7 @@ public class TestBackgroundPoster extends Thread {
         }
     }
 
-    void post(Object event) {
+    void post(final Object event) {
         synchronized (eventQ) {
             eventQ.add(event);
             eventQ.notifyAll();

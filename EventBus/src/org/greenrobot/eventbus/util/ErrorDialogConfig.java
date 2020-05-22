@@ -33,14 +33,14 @@ public class ErrorDialogConfig {
     int defaultDialogIconId;
     Class<?> defaultEventTypeOnDialogClosed;
 
-    public ErrorDialogConfig(Resources resources, int defaultTitleId, int defaultMsgId) {
+    public ErrorDialogConfig(final Resources resources, final int defaultTitleId, final int defaultMsgId) {
         this.resources = resources;
         this.defaultTitleId = defaultTitleId;
         this.defaultErrorMsgId = defaultMsgId;
         mapping = new ExceptionToResourceMapping();
     }
 
-    public ErrorDialogConfig addMapping(Class<? extends Throwable> clazz, int msgId) {
+    public ErrorDialogConfig addMapping(final Class<? extends Throwable> clazz, final int msgId) {
         mapping.addMapping(clazz, msgId);
         return this;
     }
@@ -55,11 +55,11 @@ public class ErrorDialogConfig {
         }
     }
 
-    public void setDefaultDialogIconId(int defaultDialogIconId) {
+    public void setDefaultDialogIconId(final int defaultDialogIconId) {
         this.defaultDialogIconId = defaultDialogIconId;
     }
 
-    public void setDefaultEventTypeOnDialogClosed(Class<?> defaultEventTypeOnDialogClosed) {
+    public void setDefaultEventTypeOnDialogClosed(final Class<?> defaultEventTypeOnDialogClosed) {
         this.defaultEventTypeOnDialogClosed = defaultEventTypeOnDialogClosed;
     }
 
@@ -67,16 +67,16 @@ public class ErrorDialogConfig {
         logExceptions = false;
     }
 
-    public void setTagForLoggingExceptions(String tagForLoggingExceptions) {
+    public void setTagForLoggingExceptions(final String tagForLoggingExceptions) {
         this.tagForLoggingExceptions = tagForLoggingExceptions;
     }
 
-    public void setEventBus(EventBus eventBus) {
+    public void setEventBus(final EventBus eventBus) {
         this.eventBus = eventBus;
     }
 
     /** eventBus!=null ? eventBus: EventBus.getDefault() */
     EventBus getEventBus() {
-        return eventBus!=null ? eventBus: EventBus.getDefault();
+        return eventBus != null ? eventBus : EventBus.getDefault();
     }
 }

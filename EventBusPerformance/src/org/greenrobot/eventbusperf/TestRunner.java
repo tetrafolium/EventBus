@@ -32,7 +32,7 @@ public class TestRunner extends Thread {
     private volatile boolean canceled;
     private final EventBus controlBus;
 
-    public TestRunner(Context context, TestParams testParams, EventBus controlBus) {
+    public TestRunner(final Context context, final TestParams testParams, final EventBus controlBus) {
         this.controlBus = controlBus;
         tests = new ArrayList<Test>();
         for (Class<? extends Test> testClazz : testParams.getTestClasses()) {

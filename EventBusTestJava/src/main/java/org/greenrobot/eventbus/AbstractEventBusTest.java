@@ -48,7 +48,7 @@ public abstract class AbstractEventBusTest {
         this(false);
     }
 
-    public AbstractEventBusTest(boolean collectEventsReceived) {
+    public AbstractEventBusTest(final boolean collectEventsReceived) {
         if (collectEventsReceived) {
             eventsReceived = new CopyOnWriteArrayList<Object>();
         } else {
@@ -62,7 +62,7 @@ public abstract class AbstractEventBusTest {
         eventBus = new EventBus();
     }
 
-    protected void waitForEventCount(int expectedCount, int maxMillis) {
+    protected void waitForEventCount(final int expectedCount, final int maxMillis) {
         for (int i = 0; i < maxMillis; i++) {
             int currentCount = eventCount.get();
             if (currentCount == expectedCount) {
@@ -81,7 +81,7 @@ public abstract class AbstractEventBusTest {
         assertEquals(expectedCount, eventCount.get());
     }
 
-    protected void trackEvent(Object event) {
+    protected void trackEvent(final Object event) {
         lastEvent = event;
         lastThread = Thread.currentThread();
         if (eventsReceived != null) {
@@ -91,16 +91,16 @@ public abstract class AbstractEventBusTest {
         eventCount.incrementAndGet();
     }
 
-    protected void assertEventCount(int expectedEventCount) {
+    protected void assertEventCount(final int expectedEventCount) {
         assertEquals(expectedEventCount, eventCount.intValue());
     }
     
-    protected void countDownAndAwaitLatch(CountDownLatch latch, long seconds) {
+    protected void countDownAndAwaitLatch(final CountDownLatch latch, final long seconds) {
         latch.countDown();
         awaitLatch(latch, seconds);
     }
 
-    protected void awaitLatch(CountDownLatch latch, long seconds) {
+    protected void awaitLatch(final CountDownLatch latch, final long seconds) {
         try {
             assertTrue(latch.await(seconds, TimeUnit.SECONDS));
         } catch (InterruptedException e) {
@@ -108,11 +108,11 @@ public abstract class AbstractEventBusTest {
         }
     }
 
-    protected void log(String msg) {
+    protected void log(final String msg) {
         eventBus.getLogger().log(Level.FINE, msg);
     }
 
-    protected void log(String msg, Throwable e) {
+    protected void log(final String msg, final Throwable e) {
         eventBus.getLogger().log(Level.FINE, msg, e);
     }
 

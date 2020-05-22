@@ -26,12 +26,12 @@ class AsyncPoster implements Runnable, Poster {
     private final PendingPostQueue queue;
     private final EventBus eventBus;
 
-    AsyncPoster(EventBus eventBus) {
+    AsyncPoster(final EventBus eventBus) {
         this.eventBus = eventBus;
         queue = new PendingPostQueue();
     }
 
-    public void enqueue(Subscription subscription, Object event) {
+    public void enqueue(final Subscription subscription, final Object event) {
         PendingPost pendingPost = PendingPost.obtainPendingPost(subscription, event);
         queue.enqueue(pendingPost);
         eventBus.getExecutorService().execute(this);
@@ -40,7 +40,7 @@ class AsyncPoster implements Runnable, Poster {
     @Override
     public void run() {
         PendingPost pendingPost = queue.poll();
-        if(pendingPost == null) {
+        if (pendingPost == null) {
             throw new IllegalStateException("No pending post available");
         }
         eventBus.invokeSubscriber(pendingPost);

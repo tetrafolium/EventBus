@@ -39,7 +39,7 @@ public class TestRunnerActivity extends Activity {
     private TextView textViewResult;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_runtests);
         textViewResult = findViewById(R.id.textViewResult);
@@ -63,7 +63,7 @@ public class TestRunnerActivity extends Activity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventMainThread(TestFinishedEvent event) {
+    public void onEventMainThread(final TestFinishedEvent event) {
         Test test = event.test;
         String text = "<b>" + test.getDisplayName() + "</b><br/>" + //
                 test.getPrimaryResultMicros() + " micro seconds<br/>" + //
@@ -80,7 +80,7 @@ public class TestRunnerActivity extends Activity {
         }
     }
 
-    public void onClickCancel(View view) {
+    public void onClickCancel(final View view) {
         // Cancel asap
         if (testRunner != null) {
             testRunner.cancel();
@@ -89,7 +89,7 @@ public class TestRunnerActivity extends Activity {
         finish();
     }
 
-    public void onClickKillProcess(View view) {
+    public void onClickKillProcess(final View view) {
         Process.killProcess(Process.myPid());
     }
 

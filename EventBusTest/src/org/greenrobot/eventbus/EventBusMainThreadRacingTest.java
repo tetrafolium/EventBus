@@ -75,7 +75,7 @@ public class EventBusMainThreadRacingTest extends AbstractAndroidEventBusTest {
         }
     }
 
-    protected void waitForHandler(Handler handler) {
+    protected void waitForHandler(final Handler handler) {
         final CountDownLatch doneLatch = new CountDownLatch(1);
         handler.post(new Runnable() {
 
@@ -88,7 +88,7 @@ public class EventBusMainThreadRacingTest extends AbstractAndroidEventBusTest {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventMainThread(String event) {
+    public void onEventMainThread(final String event) {
         trackEvent(event);
         if (unregistered) {
             failed = new RuntimeException("Main thread event delivered while unregistered on received event #"

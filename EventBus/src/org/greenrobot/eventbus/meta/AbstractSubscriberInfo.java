@@ -27,8 +27,8 @@ public abstract class AbstractSubscriberInfo implements SubscriberInfo {
     private final Class<? extends SubscriberInfo> superSubscriberInfoClass;
     private final boolean shouldCheckSuperclass;
 
-    protected AbstractSubscriberInfo(Class subscriberClass, Class<? extends SubscriberInfo> superSubscriberInfoClass,
-                                     boolean shouldCheckSuperclass) {
+    protected AbstractSubscriberInfo(final Class subscriberClass, final Class<? extends SubscriberInfo> superSubscriberInfoClass,
+                                     final boolean shouldCheckSuperclass) {
         this.subscriberClass = subscriberClass;
         this.superSubscriberInfoClass = superSubscriberInfoClass;
         this.shouldCheckSuperclass = shouldCheckSuperclass;
@@ -41,7 +41,7 @@ public abstract class AbstractSubscriberInfo implements SubscriberInfo {
 
     @Override
     public SubscriberInfo getSuperSubscriberInfo() {
-        if(superSubscriberInfoClass == null) {
+        if (superSubscriberInfoClass == null) {
             return null;
         }
         try {
@@ -58,22 +58,22 @@ public abstract class AbstractSubscriberInfo implements SubscriberInfo {
         return shouldCheckSuperclass;
     }
 
-    protected SubscriberMethod createSubscriberMethod(String methodName, Class<?> eventType) {
+    protected SubscriberMethod createSubscriberMethod(final String methodName, final Class<?> eventType) {
         return createSubscriberMethod(methodName, eventType, ThreadMode.POSTING, 0, false);
     }
 
-    protected SubscriberMethod createSubscriberMethod(String methodName, Class<?> eventType, ThreadMode threadMode) {
+    protected SubscriberMethod createSubscriberMethod(final String methodName, final Class<?> eventType, final ThreadMode threadMode) {
         return createSubscriberMethod(methodName, eventType, threadMode, 0, false);
     }
 
-    protected SubscriberMethod createSubscriberMethod(String methodName, Class<?> eventType, ThreadMode threadMode,
-                                                      int priority, boolean sticky) {
+    protected SubscriberMethod createSubscriberMethod(final String methodName, final Class<?> eventType, final ThreadMode threadMode,
+                                                      final int priority, final boolean sticky) {
         try {
             Method method = subscriberClass.getDeclaredMethod(methodName, eventType);
             return new SubscriberMethod(method, eventType, threadMode, priority, sticky);
         } catch (NoSuchMethodException e) {
-            throw new EventBusException("Could not find subscriber method in " + subscriberClass +
-                    ". Maybe a missing ProGuard rule?", e);
+            throw new EventBusException("Could not find subscriber method in " + subscriberClass
+                    + ". Maybe a missing ProGuard rule?", e);
         }
     }
 

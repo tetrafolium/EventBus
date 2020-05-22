@@ -28,15 +28,15 @@ import android.support.v4.app.Fragment;
 public abstract class ErrorDialogFragmentFactory<T> {
     protected final ErrorDialogConfig config;
 
-    protected ErrorDialogFragmentFactory(ErrorDialogConfig config) {
+    protected ErrorDialogFragmentFactory(final ErrorDialogConfig config) {
         this.config = config;
     }
 
     /**
      * Prepares the fragment's arguments and creates the fragment. May be overridden to provide custom error fragments.
      */
-    protected T prepareErrorFragment(ThrowableFailureEvent event, boolean finishAfterDialog,
-            Bundle argumentsForErrorDialog) {
+    protected T prepareErrorFragment(final ThrowableFailureEvent event, final boolean finishAfterDialog,
+            final Bundle argumentsForErrorDialog) {
         if (event.isSuppressErrorUi()) {
             // Show nothing by default
             return null;
@@ -73,23 +73,23 @@ public abstract class ErrorDialogFragmentFactory<T> {
     protected abstract T createErrorFragment(ThrowableFailureEvent event, Bundle arguments);
 
     /** May be overridden to provide custom error title. */
-    protected String getTitleFor(ThrowableFailureEvent event, Bundle arguments) {
+    protected String getTitleFor(final ThrowableFailureEvent event, final Bundle arguments) {
         return config.resources.getString(config.defaultTitleId);
     }
 
     /** May be overridden to provide custom error messages. */
-    protected String getMessageFor(ThrowableFailureEvent event, Bundle arguments) {
+    protected String getMessageFor(final ThrowableFailureEvent event, final Bundle arguments) {
         int msgResId = config.getMessageIdForThrowable(event.throwable);
         return config.resources.getString(msgResId);
     }
 
     public static class Support extends ErrorDialogFragmentFactory<Fragment> {
 
-        public Support(ErrorDialogConfig config) {
+        public Support(final ErrorDialogConfig config) {
             super(config);
         }
 
-        protected Fragment createErrorFragment(ThrowableFailureEvent event, Bundle arguments) {
+        protected Fragment createErrorFragment(final ThrowableFailureEvent event, final Bundle arguments) {
             ErrorDialogFragments.Support errorFragment = new ErrorDialogFragments.Support();
             errorFragment.setArguments(arguments);
             return errorFragment;
@@ -100,11 +100,11 @@ public abstract class ErrorDialogFragmentFactory<T> {
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class Honeycomb extends ErrorDialogFragmentFactory<android.app.Fragment> {
 
-        public Honeycomb(ErrorDialogConfig config) {
+        public Honeycomb(final ErrorDialogConfig config) {
             super(config);
         }
 
-        protected android.app.Fragment createErrorFragment(ThrowableFailureEvent event, Bundle arguments) {
+        protected android.app.Fragment createErrorFragment(final ThrowableFailureEvent event, final Bundle arguments) {
             ErrorDialogFragments.Honeycomb errorFragment = new ErrorDialogFragments.Honeycomb();
             errorFragment.setArguments(arguments);
             return errorFragment;

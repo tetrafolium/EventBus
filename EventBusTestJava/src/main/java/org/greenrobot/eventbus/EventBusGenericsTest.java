@@ -25,21 +25,21 @@ public class EventBusGenericsTest extends AbstractEventBusTest {
 
     public class GenericEventSubscriber<T> {
         @Subscribe
-        public void onGenericEvent(GenericEvent<T> event) {
+        public void onGenericEvent(final GenericEvent<T> event) {
             trackEvent(event);
         }
     }
 
     public class FullGenericEventSubscriber<T> {
         @Subscribe
-        public void onGenericEvent(T event) {
+        public void onGenericEvent(final T event) {
             trackEvent(event);
         }
     }
 
     public class GenericNumberEventSubscriber<T extends Number> {
         @Subscribe
-        public void onGenericEvent(T event) {
+        public void onGenericEvent(final T event) {
             trackEvent(event);
         }
     }

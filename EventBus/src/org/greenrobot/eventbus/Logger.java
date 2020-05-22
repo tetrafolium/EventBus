@@ -29,18 +29,18 @@ public interface Logger {
     class JavaLogger implements Logger {
         protected final java.util.logging.Logger logger;
 
-        public JavaLogger(String tag) {
+        public JavaLogger(final String tag) {
             logger = java.util.logging.Logger.getLogger(tag);
         }
 
         @Override
-        public void log(Level level, String msg) {
+        public void log(final Level level, final String msg) {
             // TODO Replace logged method with caller method
             logger.log(level, msg);
         }
 
         @Override
-        public void log(Level level, String msg, Throwable th) {
+        public void log(final Level level, final String msg, final Throwable th) {
             // TODO Replace logged method with caller method
             logger.log(level, msg, th);
         }
@@ -50,12 +50,12 @@ public interface Logger {
     class SystemOutLogger implements Logger {
 
         @Override
-        public void log(Level level, String msg) {
+        public void log(final Level level, final String msg) {
             System.out.println("[" + level + "] " + msg);
         }
 
         @Override
-        public void log(Level level, String msg, Throwable th) {
+        public void log(final Level level, final String msg, final Throwable th) {
             System.out.println("[" + level + "] " + msg);
             th.printStackTrace(System.out);
         }
@@ -66,8 +66,8 @@ public interface Logger {
         public static Logger get() {
             // also check main looper to see if we have "good" Android classes (not Stubs etc.)
             return AndroidLogger.isAndroidLogAvailable() && getAndroidMainLooperOrNull() != null
-                    ? new AndroidLogger("EventBus") :
-                    new Logger.SystemOutLogger();
+                    ? new AndroidLogger("EventBus")
+                    : new Logger.SystemOutLogger();
         }
 
         static Object getAndroidMainLooperOrNull() {

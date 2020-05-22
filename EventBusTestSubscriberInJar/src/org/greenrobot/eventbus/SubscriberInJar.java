@@ -8,7 +8,7 @@ public class SubscriberInJar {
     List<String> collectedStrings = new ArrayList<String>();
 
     @Subscribe
-    public void collectString(String string) {
+    public void collectString(final String string) {
         collectedStrings.add(string);
     }
 

@@ -58,25 +58,25 @@ public class EventBusNoSubscriberEventTest extends AbstractEventBusTest {
     }
 
     @Subscribe
-    public void onEvent(NoSubscriberEvent event) {
+    public void onEvent(final NoSubscriberEvent event) {
         trackEvent(event);
     }
 
     @Subscribe
-    public void onEvent(SubscriberExceptionEvent event) {
+    public void onEvent(final SubscriberExceptionEvent event) {
         trackEvent(event);
     }
 
     public static class DummySubscriber {
         @SuppressWarnings("unused")
         @Subscribe
-        public void onEvent(String dummy) {
+        public void onEvent(final String dummy) {
         }
     }
 
     public class BadNoSubscriberSubscriber {
         @Subscribe
-        public void onEvent(NoSubscriberEvent event) {
+        public void onEvent(final NoSubscriberEvent event) {
             throw new RuntimeException("I'm bad");
         }
     }

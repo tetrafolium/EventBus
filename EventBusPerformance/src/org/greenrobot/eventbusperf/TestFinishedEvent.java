@@ -21,7 +21,7 @@ public class TestFinishedEvent {
     public final Test test;
     public final boolean isLastEvent;
 
-    public TestFinishedEvent(Test test, boolean isLastEvent) {
+    public TestFinishedEvent(final Test test, final boolean isLastEvent) {
         this.test = test;
         this.isLastEvent = isLastEvent;
     }

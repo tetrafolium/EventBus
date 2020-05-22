@@ -25,15 +25,15 @@ public class EventBusException extends RuntimeException {
 
     private static final long serialVersionUID = -2912559384646531479L;
 
-    public EventBusException(String detailMessage) {
+    public EventBusException(final String detailMessage) {
         super(detailMessage);
     }
 
-    public EventBusException(Throwable throwable) {
+    public EventBusException(final Throwable throwable) {
         super(throwable);
     }
 
-    public EventBusException(String detailMessage, Throwable throwable) {
+    public EventBusException(final String detailMessage, final Throwable throwable) {
         super(detailMessage, throwable);
     }
 

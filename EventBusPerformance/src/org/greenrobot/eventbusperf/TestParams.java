@@ -37,7 +37,7 @@ public class TestParams implements Serializable {
         return eventCount;
     }
 
-    public void setEventCount(int iterations) {
+    public void setEventCount(final int iterations) {
         this.eventCount = iterations;
     }
 
@@ -45,7 +45,7 @@ public class TestParams implements Serializable {
         return subscriberCount;
     }
 
-    public void setSubscriberCount(int subscriberCount) {
+    public void setSubscriberCount(final int subscriberCount) {
         this.subscriberCount = subscriberCount;
     }
 
@@ -53,7 +53,7 @@ public class TestParams implements Serializable {
         return publisherCount;
     }
 
-    public void setPublisherCount(int publisherCount) {
+    public void setPublisherCount(final int publisherCount) {
         this.publisherCount = publisherCount;
     }
 
@@ -61,7 +61,7 @@ public class TestParams implements Serializable {
         return threadMode;
     }
 
-    public void setThreadMode(ThreadMode threadMode) {
+    public void setThreadMode(final ThreadMode threadMode) {
         this.threadMode = threadMode;
     }
 
@@ -69,7 +69,7 @@ public class TestParams implements Serializable {
         return eventInheritance;
     }
 
-    public void setEventInheritance(boolean eventInheritance) {
+    public void setEventInheritance(final boolean eventInheritance) {
         this.eventInheritance = eventInheritance;
     }
 
@@ -77,7 +77,7 @@ public class TestParams implements Serializable {
         return ignoreGeneratedIndex;
     }
 
-    public void setIgnoreGeneratedIndex(boolean ignoreGeneratedIndex) {
+    public void setIgnoreGeneratedIndex(final boolean ignoreGeneratedIndex) {
         this.ignoreGeneratedIndex = ignoreGeneratedIndex;
     }
 
@@ -85,7 +85,7 @@ public class TestParams implements Serializable {
         return testClasses;
     }
 
-    public void setTestClasses(ArrayList<Class<? extends Test>> testClasses) {
+    public void setTestClasses(final ArrayList<Class<? extends Test>> testClasses) {
         this.testClasses = testClasses;
     }
 
@@ -93,7 +93,7 @@ public class TestParams implements Serializable {
         return testNumber;
     }
 
-    public void setTestNumber(int testNumber) {
+    public void setTestNumber(final int testNumber) {
         this.testNumber = testNumber;
     }
 

@@ -27,7 +27,7 @@ public final class NoSubscriberEvent {
     /** The original event that could not be delivered to any subscriber. */
     public final Object originalEvent;
 
-    public NoSubscriberEvent(EventBus eventBus, Object originalEvent) {
+    public NoSubscriberEvent(final EventBus eventBus, final Object originalEvent) {
         this.eventBus = eventBus;
         this.originalEvent = originalEvent;
     }

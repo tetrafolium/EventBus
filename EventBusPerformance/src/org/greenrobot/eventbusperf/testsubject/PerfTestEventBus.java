@@ -39,7 +39,7 @@ public abstract class PerfTestEventBus extends Test {
     private final int eventCount;
     private final int expectedEventCount;
 
-    public PerfTestEventBus(Context context, TestParams params) {
+    public PerfTestEventBus(final Context context, final TestParams params) {
         super(context, params);
         eventBus = EventBus.builder().eventInheritance(params.isEventInheritance()).addIndex(new MyEventBusIndex())
                 .ignoreGeneratedIndex(params.isIgnoreGeneratedIndex()).build();
@@ -79,7 +79,7 @@ public abstract class PerfTestEventBus extends Test {
         }
     }
 
-    private static String getDisplayModifier(TestParams params) {
+    private static String getDisplayModifier(final TestParams params) {
         String inheritance = params.isEventInheritance() ? "" : ", no event inheritance";
         String ignoreIndex = params.isIgnoreGeneratedIndex() ? ", ignore index" : "";
         return inheritance + ignoreIndex;
@@ -87,7 +87,7 @@ public abstract class PerfTestEventBus extends Test {
 
 
     public static class Post extends PerfTestEventBus {
-        public Post(Context context, TestParams params) {
+        public Post(final Context context, final TestParams params) {
             super(context, params);
         }
 
@@ -126,7 +126,7 @@ public abstract class PerfTestEventBus extends Test {
     }
 
     public static class RegisterAll extends PerfTestEventBus {
-        public RegisterAll(Context context, TestParams params) {
+        public RegisterAll(final Context context, final TestParams params) {
             super(context, params);
         }
 
@@ -146,7 +146,7 @@ public abstract class PerfTestEventBus extends Test {
     public static class RegisterOneByOne extends PerfTestEventBus {
         protected Method clearCachesMethod;
 
-        public RegisterOneByOne(Context context, TestParams params) {
+        public RegisterOneByOne(final Context context, final TestParams params) {
             super(context, params);
         }
 
@@ -189,7 +189,7 @@ public abstract class PerfTestEventBus extends Test {
 
     public static class RegisterFirstTime extends RegisterOneByOne {
 
-        public RegisterFirstTime(Context context, TestParams params) {
+        public RegisterFirstTime(final Context context, final TestParams params) {
             super(context, params);
             try {
                 Class<?> clazz = Class.forName("org.greenrobot.eventbus.SubscriberMethodFinder");
@@ -202,14 +202,14 @@ public abstract class PerfTestEventBus extends Test {
 
         @Override
         public String getDisplayName() {
-            return "EventBus Register, first time"+ getDisplayModifier(params);
+            return "EventBus Register, first time" + getDisplayModifier(params);
         }
 
     }
 
     public class SubscribeClassEventBusMain {
         @Subscribe(threadMode = ThreadMode.MAIN)
-        public void onEventMainThread(TestEvent event) {
+        public void onEventMainThread(final TestEvent event) {
             eventsReceivedCount.incrementAndGet();
         }
 
@@ -231,7 +231,7 @@ public abstract class PerfTestEventBus extends Test {
 
     public class SubscribeClassEventBusMainOrdered {
         @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)
-        public void onEvent(TestEvent event) {
+        public void onEvent(final TestEvent event) {
             eventsReceivedCount.incrementAndGet();
         }
 
@@ -253,7 +253,7 @@ public abstract class PerfTestEventBus extends Test {
 
     public class SubscribeClassEventBusBackground {
         @Subscribe(threadMode = ThreadMode.BACKGROUND)
-        public void onEventBackgroundThread(TestEvent event) {
+        public void onEventBackgroundThread(final TestEvent event) {
             eventsReceivedCount.incrementAndGet();
         }
 
@@ -275,7 +275,7 @@ public abstract class PerfTestEventBus extends Test {
 
     public class SubscriberClassEventBusAsync {
         @Subscribe(threadMode = ThreadMode.ASYNC)
-        public void onEventAsync(TestEvent event) {
+        public void onEventAsync(final TestEvent event) {
             eventsReceivedCount.incrementAndGet();
         }
 

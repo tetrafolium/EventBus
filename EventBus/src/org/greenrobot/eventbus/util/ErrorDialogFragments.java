@@ -36,7 +36,7 @@ public class ErrorDialogFragments {
     /** TODO Use config:  Event class to be fired on dismissing the dialog by the user. May be configured by each app. */
     public static Class<?> EVENT_TYPE_ON_CLICK;
 
-    public static Dialog createDialog(Context context, Bundle arguments, OnClickListener onClickListener) {
+    public static Dialog createDialog(final Context context, final Bundle arguments, final OnClickListener onClickListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(arguments.getString(ErrorDialogManager.KEY_TITLE));
         builder.setMessage(arguments.getString(ErrorDialogManager.KEY_MESSAGE));
@@ -47,7 +47,7 @@ public class ErrorDialogFragments {
         return builder.create();
     }
 
-    public static void handleOnClick(DialogInterface dialog, int which, Activity activity, Bundle arguments) {
+    public static void handleOnClick(final DialogInterface dialog, final int which, final Activity activity, final Bundle arguments) {
         if (EVENT_TYPE_ON_CLICK != null) {
             Object event;
             try {
@@ -67,24 +67,24 @@ public class ErrorDialogFragments {
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class Honeycomb extends android.app.DialogFragment implements OnClickListener {
         @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
+        public Dialog onCreateDialog(final Bundle savedInstanceState) {
             return createDialog(getActivity(), getArguments(), this);
         }
 
         @Override
-        public void onClick(DialogInterface dialog, int which) {
+        public void onClick(final DialogInterface dialog, final int which) {
             handleOnClick(dialog, which, getActivity(), getArguments());
         }
     }
 
     public static class Support extends DialogFragment implements OnClickListener {
         @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
+        public Dialog onCreateDialog(final Bundle savedInstanceState) {
             return createDialog(getActivity(), getArguments(), this);
         }
 
         @Override
-        public void onClick(DialogInterface dialog, int which) {
+        public void onClick(final DialogInterface dialog, final int which) {
             handleOnClick(dialog, which, getActivity(), getArguments());
         }
     }

@@ -20,7 +20,7 @@ final class PendingPostQueue {
     private PendingPost head;
     private PendingPost tail;
 
-    synchronized void enqueue(PendingPost pendingPost) {
+    synchronized void enqueue(final PendingPost pendingPost) {
         if (pendingPost == null) {
             throw new NullPointerException("null cannot be enqueued");
         }
@@ -46,7 +46,7 @@ final class PendingPostQueue {
         return pendingPost;
     }
 
-    synchronized PendingPost poll(int maxMillisToWait) throws InterruptedException {
+    synchronized PendingPost poll(final int maxMillisToWait) throws InterruptedException {
         if (head == null) {
             wait(maxMillisToWait);
         }

@@ -30,7 +30,7 @@ public interface MainThreadSupport {
 
         private final Looper looper;
 
-        public AndroidHandlerMainThreadSupport(Looper looper) {
+        public AndroidHandlerMainThreadSupport(final Looper looper) {
             this.looper = looper;
         }
 
@@ -40,7 +40,7 @@ public interface MainThreadSupport {
         }
 
         @Override
-        public Poster createPoster(EventBus eventBus) {
+        public Poster createPoster(final EventBus eventBus) {
             return new HandlerPoster(eventBus, looper, 10);
         }
     }

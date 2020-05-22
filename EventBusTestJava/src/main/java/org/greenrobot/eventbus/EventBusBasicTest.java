@@ -230,29 +230,29 @@ public class EventBusBasicTest extends AbstractEventBusTest {
     }
 
     @Subscribe
-    public void onEvent(String event) {
+    public void onEvent(final String event) {
         lastStringEvent = event;
         countStringEvent++;
     }
 
     @Subscribe
-    public void onEvent(Integer event) {
+    public void onEvent(final Integer event) {
         lastIntEvent = event;
         countIntEvent++;
     }
 
     @Subscribe
-    public void onEvent(MyEvent event) {
+    public void onEvent(final MyEvent event) {
         countMyEvent++;
     }
 
     @Subscribe
-    public void onEvent2(MyEvent event) {
+    public void onEvent2(final MyEvent event) {
         countMyEvent2++;
     }
 
     @Subscribe
-    public void onEvent(MyEventExtended event) {
+    public void onEvent(final MyEventExtended event) {
         countMyEventExtended++;
     }
 
@@ -260,20 +260,20 @@ public class EventBusBasicTest extends AbstractEventBusTest {
         public String lastStringEvent;
 
         @Subscribe
-        public void onEvent(String event) {
+        public void onEvent(final String event) {
             lastStringEvent = event;
         }
     }
 
     public static class CharSequenceSubscriber {
         @Subscribe
-        public void onEvent(CharSequence event) {
+        public void onEvent(final CharSequence event) {
         }
     }
 
     public static class ObjectSubscriber {
         @Subscribe
-        public void onEvent(Object event) {
+        public void onEvent(final Object event) {
         }
     }
 
@@ -288,7 +288,7 @@ public class EventBusBasicTest extends AbstractEventBusTest {
         public int countEvent;
 
         @Subscribe
-        public void onEvent(Integer event) {
+        public void onEvent(final Integer event) {
             lastEvent = event;
             countEvent++;
             assertEquals(countEvent, event.intValue());

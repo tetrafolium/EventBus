@@ -53,7 +53,7 @@ public class EventBusMainThreadTest extends AbstractAndroidEventBusTest {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventMainThread(String event) {
+    public void onEventMainThread(final String event) {
         trackEvent(event);
     }
 

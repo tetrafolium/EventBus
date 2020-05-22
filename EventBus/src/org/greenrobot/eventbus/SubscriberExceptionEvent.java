@@ -33,8 +33,8 @@ public final class SubscriberExceptionEvent {
     /** The subscriber that threw the Throwable. */
     public final Object causingSubscriber;
 
-    public SubscriberExceptionEvent(EventBus eventBus, Throwable throwable, Object causingEvent,
-            Object causingSubscriber) {
+    public SubscriberExceptionEvent(final EventBus eventBus, final Throwable throwable, final Object causingEvent,
+            final Object causingSubscriber) {
         this.eventBus = eventBus;
         this.throwable = throwable;
         this.causingEvent = causingEvent;

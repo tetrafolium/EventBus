@@ -24,14 +24,14 @@ final class Subscription {
      */
     volatile boolean active;
 
-    Subscription(Object subscriber, SubscriberMethod subscriberMethod) {
+    Subscription(final Object subscriber, final SubscriberMethod subscriberMethod) {
         this.subscriber = subscriber;
         this.subscriberMethod = subscriberMethod;
         active = true;
     }
 
     @Override
-    public boolean equals(Object other) {
+    public boolean equals(final Object other) {
         if (other instanceof Subscription) {
             Subscription otherSubscription = (Subscription) other;
             return subscriber == otherSubscription.subscriber

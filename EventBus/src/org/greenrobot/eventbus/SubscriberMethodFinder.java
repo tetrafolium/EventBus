@@ -45,14 +45,14 @@ class SubscriberMethodFinder {
     private static final int POOL_SIZE = 4;
     private static final FindState[] FIND_STATE_POOL = new FindState[POOL_SIZE];
 
-    SubscriberMethodFinder(List<SubscriberInfoIndex> subscriberInfoIndexes, boolean strictMethodVerification,
-                           boolean ignoreGeneratedIndex) {
+    SubscriberMethodFinder(final List<SubscriberInfoIndex> subscriberInfoIndexes, final boolean strictMethodVerification,
+                           final boolean ignoreGeneratedIndex) {
         this.subscriberInfoIndexes = subscriberInfoIndexes;
         this.strictMethodVerification = strictMethodVerification;
         this.ignoreGeneratedIndex = ignoreGeneratedIndex;
     }
 
-    List<SubscriberMethod> findSubscriberMethods(Class<?> subscriberClass) {
+    List<SubscriberMethod> findSubscriberMethods(final Class<?> subscriberClass) {
         List<SubscriberMethod> subscriberMethods = METHOD_CACHE.get(subscriberClass);
         if (subscriberMethods != null) {
             return subscriberMethods;
@@ -72,7 +72,7 @@ class SubscriberMethodFinder {
         }
     }
 
-    private List<SubscriberMethod> findUsingInfo(Class<?> subscriberClass) {
+    private List<SubscriberMethod> findUsingInfo(final Class<?> subscriberClass) {
         FindState findState = prepareFindState();
         findState.initForSubscriber(subscriberClass);
         while (findState.clazz != null) {
@@ -92,7 +92,7 @@ class SubscriberMethodFinder {
         return getMethodsAndRelease(findState);
     }
 
-    private List<SubscriberMethod> getMethodsAndRelease(FindState findState) {
+    private List<SubscriberMethod> getMethodsAndRelease(final FindState findState) {
         List<SubscriberMethod> subscriberMethods = new ArrayList<>(findState.subscriberMethods);
         findState.recycle();
         synchronized (FIND_STATE_POOL) {
@@ -119,7 +119,7 @@ class SubscriberMethodFinder {
         return new FindState();
     }
 
-    private SubscriberInfo getSubscriberInfo(FindState findState) {
+    private SubscriberInfo getSubscriberInfo(final FindState findState) {
         if (findState.subscriberInfo != null && findState.subscriberInfo.getSuperSubscriberInfo() != null) {
             SubscriberInfo superclassInfo = findState.subscriberInfo.getSuperSubscriberInfo();
             if (findState.clazz == superclassInfo.getSubscriberClass()) {
@@ -137,7 +137,7 @@ class SubscriberMethodFinder {
         return null;
     }
 
-    private List<SubscriberMethod> findUsingReflection(Class<?> subscriberClass) {
+    private List<SubscriberMethod> findUsingReflection(final Class<?> subscriberClass) {
         FindState findState = prepareFindState();
         findState.initForSubscriber(subscriberClass);
         while (findState.clazz != null) {
@@ -147,7 +147,7 @@ class SubscriberMethodFinder {
         return getMethodsAndRelease(findState);
     }
 
-    private void findUsingReflectionInSingleClass(FindState findState) {
+    private void findUsingReflectionInSingleClass(final FindState findState) {
         Method[] methods;
         try {
             // This is faster than getMethods, especially when subscribers are fat classes like Activities
@@ -183,13 +183,13 @@ class SubscriberMethodFinder {
                     }
                 } else if (strictMethodVerification && method.isAnnotationPresent(Subscribe.class)) {
                     String methodName = method.getDeclaringClass().getName() + "." + method.getName();
-                    throw new EventBusException("@Subscribe method " + methodName +
-                            "must have exactly 1 parameter but has " + parameterTypes.length);
+                    throw new EventBusException("@Subscribe method " + methodName
+                            + "must have exactly 1 parameter but has " + parameterTypes.length);
                 }
             } else if (strictMethodVerification && method.isAnnotationPresent(Subscribe.class)) {
                 String methodName = method.getDeclaringClass().getName() + "." + method.getName();
-                throw new EventBusException(methodName +
-                        " is a illegal @Subscribe method: must be public, non-static, and non-abstract");
+                throw new EventBusException(methodName
+                        + " is a illegal @Subscribe method: must be public, non-static, and non-abstract");
             }
         }
     }
@@ -209,7 +209,7 @@ class SubscriberMethodFinder {
         boolean skipSuperClasses;
         SubscriberInfo subscriberInfo;
 
-        void initForSubscriber(Class<?> subscriberClass) {
+        void initForSubscriber(final Class<?> subscriberClass) {
             this.subscriberClass = clazz = subscriberClass;
             skipSuperClasses = false;
             subscriberInfo = null;
@@ -226,7 +226,7 @@ class SubscriberMethodFinder {
             subscriberInfo = null;
         }
 
-        boolean checkAdd(Method method, Class<?> eventType) {
+        boolean checkAdd(final Method method, final Class<?> eventType) {
             // 2 level check: 1st level with event type only (fast), 2nd level with complete signature when required.
             // Usually a subscriber doesn't have methods listening to the same event type.
             Object existing = anyMethodByEventType.put(eventType, method);
@@ -245,7 +245,7 @@ class SubscriberMethodFinder {
             }
         }
 
-        private boolean checkAddWithMethodSignature(Method method, Class<?> eventType) {
+        private boolean checkAddWithMethodSignature(final Method method, final Class<?> eventType) {
             methodKeyBuilder.setLength(0);
             methodKeyBuilder.append(method.getName());
             methodKeyBuilder.append('>').append(eventType.getName());
@@ -271,8 +271,8 @@ class SubscriberMethodFinder {
                 String clazzName = clazz.getName();
                 // Skip system classes, this degrades performance.
                 // Also we might avoid some ClassNotFoundException (see FAQ for background).
-                if (clazzName.startsWith("java.") || clazzName.startsWith("javax.") ||
-                        clazzName.startsWith("android.") || clazzName.startsWith("androidx.")) {
+                if (clazzName.startsWith("java.") || clazzName.startsWith("javax.")
+                        || clazzName.startsWith("android.") || clazzName.startsWith("androidx.")) {
                     clazz = null;
                 }
             }

@@ -72,33 +72,33 @@ public class EventBusCancelEventDeliveryTest extends AbstractEventBusTest {
         private final int prio;
         private final boolean cancel;
 
-        public Subscriber(int prio, boolean cancel) {
+        public Subscriber(final int prio, final boolean cancel) {
             this.prio = prio;
             this.cancel = cancel;
         }
 
         @Subscribe
-        public void onEvent(String event) {
+        public void onEvent(final String event) {
             handleEvent(event, 0);
         }
 
         @Subscribe(priority = 1)
-        public void onEvent1(String event) {
+        public void onEvent1(final String event) {
             handleEvent(event, 1);
         }
 
         @Subscribe(priority = 2)
-        public void onEvent2(String event) {
+        public void onEvent2(final String event) {
             handleEvent(event, 2);
         }
 
         @Subscribe(priority = 3)
-        public void onEvent3(String event) {
+        public void onEvent3(final String event) {
             handleEvent(event, 3);
         }
 
-        private void handleEvent(String event, int prio) {
-            if(this.prio == prio) {
+        private void handleEvent(final String event, final int prio) {
+            if (this.prio == prio) {
                 trackEvent(event);
                 if (cancel) {
                     eventBus.cancelEventDelivery(event);
@@ -109,7 +109,7 @@ public class EventBusCancelEventDeliveryTest extends AbstractEventBusTest {
 
     public class SubscriberCancelOtherEvent {
         @Subscribe
-        public void onEvent(String event) {
+        public void onEvent(final String event) {
             try {
                 eventBus.cancelEventDelivery(this);
             } catch (EventBusException e) {
@@ -122,7 +122,7 @@ public class EventBusCancelEventDeliveryTest extends AbstractEventBusTest {
         final CountDownLatch done = new CountDownLatch(1);
 
         @Subscribe(threadMode = ThreadMode.MAIN)
-        public void onEventMainThread(String event) {
+        public void onEventMainThread(final String event) {
             try {
                 eventBus.cancelEventDelivery(event);
             } catch (EventBusException e) {
