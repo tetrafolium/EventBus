@@ -94,12 +94,10 @@ public class EventBusAnnotationProcessor extends AbstractProcessor {
                 messager.printMessage(Diagnostic.Kind.NOTE, "Processing round " + round + ", new annotations: "
                         + !annotations.isEmpty() + ", processingOver: " + env.processingOver());
             }
-            if (env.processingOver()) {
-                if (!annotations.isEmpty()) {
-                    messager.printMessage(Diagnostic.Kind.ERROR,
-                            "Unexpected processing state: annotations still available after processing over");
-                    return false;
-                }
+            if ((env.processingOver()) && (!annotations.isEmpty())) {
+                messager.printMessage(Diagnostic.Kind.ERROR,
+                        "Unexpected processing state: annotations still available after processing over");
+                return false;
             }
             if (annotations.isEmpty()) {
                 return false;
